@@ -1,0 +1,73 @@
+原始数据：(605, 25) 行×列，孕妇数量：147
+
+预处理后目标变量分布：正常=538，异常=67
+训练集：418样本，102孕妇，异常比例12.0%
+测试集：187样本，45孕妇，异常比例9.1%
+
+开始训练 RandomForest 模型：使用24个特征，样本数418
+Fitting 5 folds for each of 18 candidates, totalling 90 fits
+
+RandomForest 最优参数：{'model__max_depth': 8, 'model__min_samples_leaf': 4, 'model__n_estimators': 100}
+RandomForest 交叉验证平均召回率：0.691
+
+RandomForest - Top10关键特征：
+          特征名称     重要性
+21  X染色体浓度_标准化  0.1991
+3        孕妇BMI  0.0828
+18   13号GC_偏离度  0.0745
+19   18号GC_偏离度  0.0642
+20   21号GC_偏离度  0.0551
+15   18号Z值_可靠度  0.0488
+12    全局GC_偏离度  0.0469
+0           年龄  0.0436
+9      重复读段的比例  0.0435
+2           体重  0.0397
+
+开始训练 XGBoost 模型：使用24个特征，样本数418
+Fitting 5 folds for each of 12 candidates, totalling 60 fits
+
+XGBoost 最优参数：{'model__learning_rate': 0.1, 'model__max_depth': 5, 'model__n_estimators': 100}
+XGBoost 交叉验证平均召回率：0.684
+
+XGBoost - Top10关键特征：
+          特征名称     重要性
+21  X染色体浓度_标准化  0.1225
+12    全局GC_偏离度  0.0884
+18   13号GC_偏离度  0.0821
+0           年龄  0.0731
+20   21号GC_偏离度  0.0639
+3        孕妇BMI  0.0583
+1           身高  0.0508
+2           体重  0.0460
+15   18号Z值_可靠度  0.0442
+9      重复读段的比例  0.0440
+
+开始训练 GradientBoosting 模型：使用24个特征，样本数418
+Fitting 5 folds for each of 18 candidates, totalling 90 fits
+
+GradientBoosting 最优参数：{'model__learning_rate': 0.05, 'model__max_depth': 3, 'model__n_estimators': 100}
+GradientBoosting 交叉验证平均召回率：0.736
+
+GradientBoosting - Top10关键特征：
+          特征名称     重要性
+21  X染色体浓度_标准化  0.3036
+18   13号GC_偏离度  0.1773
+0           年龄  0.0930
+1           身高  0.0759
+12    全局GC_偏离度  0.0583
+20   21号GC_偏离度  0.0425
+3        孕妇BMI  0.0398
+9      重复读段的比例  0.0387
+19   18号GC_偏离度  0.0371
+17    X号Z值_绝对值  0.0316
+
+模型性能对比
+                         模型名称   准确率   精确率   召回率  F1分数  F2分数  ROC-AUC  PR-AUC
+GradientBoosting (F2阈值=0.112) 0.840 0.341 0.824 0.483 0.642    0.872   0.509
+    RandomForest (F2阈值=0.461) 0.893 0.440 0.647 0.524 0.591    0.837   0.524
+         XGBoost (F2阈值=0.042) 0.786 0.255 0.706 0.375 0.522    0.799   0.354
+               传统Z值规则 (|Z|>3) 0.872 0.182 0.118 0.143 0.127    0.532   0.102
+最优模型为:GradientBoosting (测试集F2分数:0.642)
+样本信息：{'孕妇代码': 'B002'}
+判定结果：{'异常概率': 0.056, '风险等级': '低风险', '判定(F2最优)': '正常'}
+临床建议：按常规产检流程即可。

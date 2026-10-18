@@ -1,0 +1,13 @@
+# NIPT 时点选择与胎儿异常判定 - 运行环境
+# Python 3.13（3.10+ 均可）
+# 安装：pip install -r requirements.txt
+
+pandas==3.0.6
+numpy==2.5.3
+scipy==1.18.1
+scikit-learn==1.9.1
+statsmodels==0.15.0
+matplotlib==3.11.2
+seaborn==0.13.2
+xgboost==3.4.1
+openpyxl==3.1.5
